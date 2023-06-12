@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
@@ -18,6 +19,7 @@ public class UsersRunnerFaker implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		Faker faker = new Faker(new Locale("it"));
 		for (int i = 0; i < 3; i++) {
 			try {
@@ -26,13 +28,13 @@ public class UsersRunnerFaker implements CommandLineRunner {
 				String surname = faker.name().lastName();
 				String email = faker.internet().emailAddress();
 				String password = faker.internet().password();
-				UserRegistrationPayload user = new UserRegistrationPayload(username, name, surname, email, password);
+				String hashedPassword = passwordEncoder.encode(password);
+				UserRegistrationPayload user = new UserRegistrationPayload(username, name, surname, email,
+						hashedPassword);
 				usersService.create(user);
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 		}
-
 	}
-
 }
