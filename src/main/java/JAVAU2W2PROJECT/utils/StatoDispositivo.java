@@ -1,5 +1,0 @@
-package JAVAU2W2PROJECT.utils;
-
-public enum StatoDispositivo {
-	DISPONIBILE, ASSEGNATO, IN_MANUTENZIONE, DISMESSO
-}
