@@ -3,6 +3,7 @@ package JAVAU2W2PROJECT;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -41,9 +42,10 @@ public class DispositiviRunnerFaker implements CommandLineRunner {
 				String marca = faker.company().name();
 				TipoDispositivo tipoDispositivo = faker.options().option(TipoDispositivo.class);
 				StatoDispositivo statoDispositivo = faker.options().option(StatoDispositivo.class);
+				UUID seriale = UUID.randomUUID();
 
 				DispositivoRegistrationPayload dispositivo = new DispositivoRegistrationPayload(marca, tipoDispositivo,
-						statoDispositivo);
+						statoDispositivo, seriale);
 
 				ds.create(dispositivo);
 

@@ -3,6 +3,7 @@ package JAVAU2W2PROJECT.entities;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import JAVAU2W2PROJECT.utils.StatoDispositivo;
 import JAVAU2W2PROJECT.utils.TipoDispositivo;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "dispositivi")
 @NoArgsConstructor
+@JsonIgnoreProperties({ "seriale" })
 public class Dispositivo {
 	@Id
 	@GeneratedValue
@@ -33,11 +35,14 @@ public class Dispositivo {
 	@JsonIgnore
 	private User user;
 
-	public Dispositivo(String marca, TipoDispositivo tipoDispositivo, StatoDispositivo statoDispositivo) {
+	private UUID seriale;
+
+	public Dispositivo(String marca, TipoDispositivo tipoDispositivo, StatoDispositivo statoDispositivo, UUID seriale) {
 		this.marca = marca;
 		this.tipoDispositivo = tipoDispositivo;
 		this.statoDispositivo = statoDispositivo;
 		this.user = null;
+		this.seriale = seriale;
 	}
 
 }

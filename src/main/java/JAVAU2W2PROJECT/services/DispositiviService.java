@@ -24,7 +24,8 @@ public class DispositiviService {
 	UsersRepository ur;
 
 	public Dispositivo create(DispositivoRegistrationPayload d) {
-		Dispositivo nuovoDispositivo = new Dispositivo(d.getMarca(), d.getTipoDispositivo(), d.getStatoDispositivo());
+		Dispositivo nuovoDispositivo = new Dispositivo(d.getMarca(), d.getTipoDispositivo(), d.getStatoDispositivo(),
+				d.getSeriale());
 		return dr.save(nuovoDispositivo);
 	}
 
