@@ -39,14 +39,15 @@ public class Dispositivo {
 	private User user;
 
 	@Convert(converter = SerialeConverter.class)
-	private UUID seriale;
+	private String seriale;
 
-	public Dispositivo(String marca, TipoDispositivo tipoDispositivo, StatoDispositivo statoDispositivo, UUID seriale) {
+	public Dispositivo(String marca, TipoDispositivo tipoDispositivo, StatoDispositivo statoDispositivo,
+			String serialeCodificato) {
 		this.marca = marca;
 		this.tipoDispositivo = tipoDispositivo;
 		this.statoDispositivo = statoDispositivo;
 		this.user = null;
-		this.seriale = seriale;
+		this.seriale = serialeCodificato;
 	}
 
 }
