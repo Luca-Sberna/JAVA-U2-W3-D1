@@ -22,7 +22,6 @@ public class SerialeConverter implements AttributeConverter<String, String> {
 
 	@Override
 	public String convertToDatabaseColumn(String seriale) {
-
 		try {
 			Key key = new SecretKeySpec(secret.getBytes(), "AES");
 			Cipher c = Cipher.getInstance(ALGORITHM);
@@ -30,13 +29,11 @@ public class SerialeConverter implements AttributeConverter<String, String> {
 			c.init(Cipher.ENCRYPT_MODE, key);
 
 			return Base64.getEncoder().encodeToString(c.doFinal(seriale.getBytes()));
-
 		} catch (RuntimeException | NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
 				| IllegalBlockSizeException | BadPaddingException e) {
 			System.out.println(e);
 			throw new RuntimeException();
 		}
-
 	}
 
 	@Override
@@ -47,12 +44,9 @@ public class SerialeConverter implements AttributeConverter<String, String> {
 			c.init(Cipher.DECRYPT_MODE, key);
 
 			return new String(c.doFinal(Base64.getDecoder().decode(encryptedSeriale)));
-
 		} catch (Exception e) {
 			System.out.println(e);
 			throw new RuntimeException();
 		}
-
 	}
-
 }

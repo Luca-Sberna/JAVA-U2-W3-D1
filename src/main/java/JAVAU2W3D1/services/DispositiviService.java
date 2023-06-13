@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import JAVAU2W3D1.converters.SerialeConverter;
 import JAVAU2W3D1.entities.Dispositivo;
 import JAVAU2W3D1.payloads.DispositivoRegistrationPayload;
 import JAVAU2W3D1.repository.DispositiviRepository;
@@ -23,9 +24,16 @@ public class DispositiviService {
 	@Autowired
 	UsersRepository ur;
 
+	@Autowired
+	private SerialeConverter converter;
+
 	public Dispositivo create(DispositivoRegistrationPayload d) {
+		UUID seriale = d.getSeriale();
+		String serialeString = seriale.toString();
+		String serialeCodificato = converter.convertToDatabaseColumn(serialeString);
+
 		Dispositivo nuovoDispositivo = new Dispositivo(d.getMarca(), d.getTipoDispositivo(), d.getStatoDispositivo(),
-				d.getSeriale());
+				serialeCodificato);
 		return dr.save(nuovoDispositivo);
 	}
 
