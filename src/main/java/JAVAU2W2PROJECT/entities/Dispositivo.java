@@ -5,8 +5,10 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import JAVAU2W2PROJECT.converters.SerialeConverter;
 import JAVAU2W2PROJECT.utils.StatoDispositivo;
 import JAVAU2W2PROJECT.utils.TipoDispositivo;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -31,10 +33,12 @@ public class Dispositivo {
 	private TipoDispositivo tipoDispositivo;
 	@Enumerated(EnumType.STRING)
 	private StatoDispositivo statoDispositivo;
+
 	@ManyToOne
 	@JsonIgnore
 	private User user;
 
+	@Convert(converter = SerialeConverter.class)
 	private UUID seriale;
 
 	public Dispositivo(String marca, TipoDispositivo tipoDispositivo, StatoDispositivo statoDispositivo, UUID seriale) {
